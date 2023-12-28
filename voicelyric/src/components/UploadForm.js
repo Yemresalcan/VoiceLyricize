@@ -1,11 +1,13 @@
 "use client"
 import UploadIcon from '@/components/UploadIcon'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function UploadForm() {
 
     const [isUploading, setisUploading] = useState(false)
+    const router = useRouter()
 
     async function upload(ev) {
         ev.preventDefault();
@@ -17,7 +19,8 @@ export default function UploadForm() {
                 file,
             });
             setisUploading(false);
-            console.log(res.data);
+            const newName= res.data.newName;
+            router.push('/'+newName)
         }
     }
 
