@@ -1,4 +1,5 @@
 import {GetTranscriptionJobCommand, StartTranscriptionJobCommand, TranscribeClient} from '@aws-sdk/client-transcribe';
+import {S3Client,GetObjectCommand} from "@aws-sdk/client-s3";
 
 function getClient(){
  return new TranscribeClient({
@@ -31,7 +32,7 @@ async function createTrancriptionJob(filename){
 }
 
 async function getJob(filename){
-
+    const transcribeClient = getClient();
     let jobStatusResult= null;
     try {
         const transcriptionJobStatusCommand = new GetTranscriptionJobCommand({
@@ -42,14 +43,50 @@ async function getJob(filename){
             transcriptionJobStatusCommand
             );
     }catch(e){
-        console.log(e)
+        return jobStatusResult;
     }
-return jobStatusResult;
-}
-    
-async function getTranscriptionFile(filename){
-    const transcriptionFile = filename+'.transcription';
 
+}
+
+async function streamToString(stream){
+    const chunks = [];
+    return new Promise((resolve,reject)=>{
+    stream.on('data', chunk => chunks.push(Buffer.from(chunk)));
+    stream.on('end',() => resolve(Buffer.concat(chunks).toString('utf8')));
+    stream.on('error', reject);
+
+    
+    })
+}
+
+
+    
+
+async function getTranscriptionJob(filename){
+    const transcriptionFile = filename+'.transcription'; 
+    const s3client = new S3Client({
+        region: 'eu-north-1',
+        credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        }
+    });
+
+    const getObjectCommand = new GetObjectCommand({
+        Bucket: process.env.BUCKET_NAME,
+        Key: transcriptionFile,
+    });
+
+    let transcriptionFileResponse = null;
+    try {
+        transcriptionFileResponse = await s3client.send(getObjectCommand);
+    } catch (e) {}
+
+    if(transcriptionFileResponse) {
+         return JSON.parse(await streamToString(transcriptionFileResponse.Body));
+    }
+
+    return null;
 }
 
 
@@ -61,6 +98,17 @@ export async function GET(req) {
     const url =  new URL(req.url);
     const searchParams = new URLSearchParams(url.searchParams);
     const filename = searchParams.get('filename');
+
+//fing ready transcription job
+ const transcription=await getTranscriptionJob(filename);
+if(transcription){
+    return Response.json({
+        status: 'COMPLETED',
+        transcription,
+    
+    })
+}
+
 
   
 const existingJob= await getJob(filename);
@@ -81,5 +129,5 @@ if (!existingJob) {
    })
 }
    
-    return Response.json(false)
+    return Response.json(null)
 }
