@@ -15,6 +15,7 @@
     "@ffmpeg/util": "^0.12.1",
     "aws-crt": "^1.18.0",
     "axios": "^1.5.1",
+    "ffmpeg": "^0.0.4",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",

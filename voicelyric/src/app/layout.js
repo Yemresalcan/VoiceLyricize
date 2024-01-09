@@ -1,8 +1,8 @@
-import { Inter } from 'next/font/google'
+import BoltIcon from '@/components/BoltIcon';
 import './globals.css'
-import BoltIcon from '@/components/BoltIcon'
-import Link from 'next/link'
 
+import { Inter } from 'next/font/google'
+import Link from "next/link";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,30 +14,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen text-black`}>
-       <main className='p-4 max-w-2xl mx-auto'>
-       <header className='flex justify-between my-8'>
-        <Link href='/' className='flex items-center gap-1'>
-        <BoltIcon />
-
-          <span> VoiceLyric </span>
-        </Link>
-          <nav className='flex gap-6 text-black/80'>
-            <Link href='/'> Ana Sayfa  </Link>
-            <Link href='/pricing'> Fiyatlandırma </Link>
-            <Link href='/iletisim'> İletişim </Link>
-
-          </nav>
-      </header>
-
-
-
-
-        {children}
+      <body className={inter.className + " bg-gradient-to-b from-bg-gradient-from to-bg-gradient-to min-h-screen text-white"}>
+        <main className="p-4 max-w-2xl mx-auto">
+          <header className="flex justify-between my-2 sm:my-8">
+            <Link href="/" className="flex gap-1">
+              <BoltIcon   />
+              <span className='text-black text-2xl'>Voicelyric</span>
+            </Link>
+            <nav className="flex items-center gap-2 sm:gap-6 text-black/80 text-xl sm:text-bas">
+              <Link href="/">Ana Sayfa</Link>
+              <Link href="/pricing">Ödeme</Link>
+              <a href="mailto:yunuemresalcan@gmail.com">İletişim</a>
+            </nav>
+          </header>
+          {children}
         </main>
-        
-        </body>
-
+      </body>
     </html>
   )
 }

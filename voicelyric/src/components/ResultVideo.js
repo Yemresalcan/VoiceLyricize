@@ -1,13 +1,13 @@
-
+import SparklesIcon from "@/components/SparklesIcon";
 import {transcriptionItemsToSrt} from "@/libs/awsTranscriptionHelpers";
 import {FFmpeg} from "@ffmpeg/ffmpeg";
 import {toBlobURL, fetchFile} from "@ffmpeg/util";
 import {useEffect, useState, useRef} from "react";
-
-import BoltIcon from "./BoltIcon";
+import roboto from './../fonts/Roboto-Regular.ttf';
+import robotoBold from './../fonts/Roboto-Bold.ttf';
 
 export default function ResultVideo({filename,transcriptionItems}) {
-  const videoUrl = "https://dawid-epic-captions.s3.amazonaws.com/"+filename;
+  const videoUrl = "https://voicelyric.s3.eu-north-1.amazonaws.com/"+filename;
   const [loaded, setLoaded] = useState(false);
   const [primaryColor, setPrimaryColor] = useState('#FFFFFF');
   const [outlineColor, setOutlineColor] = useState('#000000');
@@ -75,7 +75,7 @@ export default function ResultVideo({filename,transcriptionItems}) {
         <button
           onClick={transcode}
           className="bg-green-600 py-2 px-6 rounded-full inline-flex gap-2 border-2 border-purple-700/50 cursor-pointer">
-          <BoltIcon />
+          <SparklesIcon />
           <span>Apply captions</span>
         </button>
       </div>
