@@ -6,8 +6,8 @@ export default function Home() {
   return (
     <>
       <PageHeader
-        h1Text={'Add epic captions to your videos'}
-        h2Text={'Just upload your video and we will do the rest'}
+        h1Text={'Videolarınıza epik altyazılar ekleyin'}
+        h2Text={'Sadece videonuzu yükleyin ve gerisini biz halledelim'}
       />
       <div className="text-center">
         <UploadForm />

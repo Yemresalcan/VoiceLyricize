@@ -36,7 +36,7 @@ export default function UploadForm() {
       )}
       <label className="bg-green-600 py-2 px-6 rounded-full inline-flex gap-2 border-2 border-purple-700/50 cursor-pointer">
         <UploadIcon />
-        <span>Choose file</span>
+        <span>Dosya Yükle</span>
         <input onChange={upload} type="file" className="hidden"/>
       </label>
     </>

@@ -14,12 +14,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className + " bg-gradient-to-b from-bg-gradient-from to-bg-gradient-to min-h-screen text-white"}>
+      <body className={inter.className + "bg-gradient-to-b from-bg-gradient-from to-bg-gradient-to min-h-screen text-black"}>
         <main className="p-4 max-w-2xl mx-auto">
           <header className="flex justify-between my-2 sm:my-8">
             <Link href="/" className="flex gap-1">
               <BoltIcon   />
-              <span className='text-black text-2xl'>Voicelyric</span>
+              <span className='text-black text-2xl mt-2'>Voicelyric</span>
             </Link>
             <nav className="flex items-center gap-2 sm:gap-6 text-black/80 text-xl sm:text-bas">
               <Link href="/">Ana Sayfa</Link>

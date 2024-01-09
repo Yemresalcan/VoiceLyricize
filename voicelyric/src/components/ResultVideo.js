@@ -74,12 +74,12 @@ export default function ResultVideo({filename,transcriptionItems}) {
       <div className="mb-4">
         <button
           onClick={transcode}
-          className="bg-green-600 py-2 px-6 rounded-full inline-flex gap-2 border-2 border-purple-700/50 cursor-pointer">
+          className="bg-green-600 py-2 px-6 rounded-full inline-flex gap-2 border-2 border-orange-700/50 cursor-pointer">
           <SparklesIcon />
-          <span>Apply captions</span>
+          <span>Alt Yazı Ekle </span>
         </button>
       </div>
-      <div>
+      <div> 
         primary color:
         <input type="color"
                value={primaryColor}
