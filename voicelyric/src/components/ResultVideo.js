@@ -60,7 +60,7 @@ export default function ResultVideo({filename,transcriptionItems}) {
     await ffmpeg.exec([
       '-i', filename,
       '-preset', 'ultrafast',
-      '-vf', `subtitles=subs.srt:fontsdir=/tmp:force_style='Fontname=Roboto Bold,FontSize=30,MarginV=70,PrimaryColour=${toFFmpegColor(primaryColor)},OutlineColour=${toFFmpegColor(outlineColor)}'`,
+      '-vf', `subtitles=subs.srt:fontsdir=/tmp:force_style='Fontname=Roboto Bold,FontSize=20,MarginV=70,PrimaryColour=${toFFmpegColor(primaryColor)},OutlineColour=${toFFmpegColor(outlineColor)}'`,
       'output.mp4'
     ]);
     const data = await ffmpeg.readFile('output.mp4');
@@ -80,12 +80,12 @@ export default function ResultVideo({filename,transcriptionItems}) {
         </button>
       </div>
       <div> 
-        primary color:
+        Primary color:
         <input type="color"
                value={primaryColor}
                onChange={ev => setPrimaryColor(ev.target.value)}/>
         <br />
-        outline color:
+        Outline color:
         <input type="color"
                value={outlineColor}
                onChange={ev => setOutlineColor(ev.target.value)}/>
@@ -96,9 +96,9 @@ export default function ResultVideo({filename,transcriptionItems}) {
             <div className="w-full text-center">
               <div className="bg-bg-gradient-from/50 mx-8 rounded-lg overflow-hidden relative">
                 <div className="bg-bg-gradient-from h-8"
-                     style={{width:progress * 100+'%'}}>
+                     style={{width:progress * 80+'%'}}>
                   <h3 className="text-white text-xl absolute inset-0 py-1">
-                    {parseInt(progress * 100)}%
+                    {parseInt(progress * 80)}%
                   </h3>
                 </div>
               </div>
