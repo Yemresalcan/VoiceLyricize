@@ -5,14 +5,14 @@ import {useRouter} from "next/navigation";
 import {useState} from "react";
 
 export default function UploadForm() {
-
+  const [uploadCount, setUploadCount] = useState(0); // Track the number of uploads
   const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
 
   async function upload(ev) {
     ev.preventDefault();
     const files = ev.target.files;
-    if (files.length > 0) {
+    if (files.length > 0 && uploadCount < 3) {
       const file = files[0];
       setIsUploading(true);
       const res = await axios.postForm('/api/upload', {
@@ -21,9 +21,12 @@ export default function UploadForm() {
       setIsUploading(false);
       const newName = res.data.newName;
       router.push('/'+newName);
+
+      // Increment the upload count
+      setUploadCount(uploadCount + 1);
     }
   }
-
+  const remainingUploads = 3 - uploadCount;
   return (
     <>
       {isUploading && (
@@ -34,11 +37,16 @@ export default function UploadForm() {
           </div>
         </div>
       )}
-      <label className="bg-green-600 py-2 px-6 rounded-full inline-flex gap-2 border-2 border-purple-700/50 cursor-pointer">
-        <UploadIcon />
-        <span>Dosya Yükle</span>
-        <input onChange={upload} type="file" className="hidden"/>
-      </label>
+        {uploadCount < 3 && (
+        <div>
+          <label className="bg-green-600 py-2 px-6 rounded-full inline-flex gap-2 border-2 border-purple-700/50 cursor-pointer">
+            <UploadIcon />
+            <span>Dosya Yükle {remainingUploads}</span>
+            <input onChange={upload} type="file" className="hidden" />
+          </label>
+       
+        </div>
+      )}
     </>
   );
 }
