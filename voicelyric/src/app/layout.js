@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
             </Link>
             <nav className="flex items-center gap-2 sm:gap-6 text-black/80 text-xl sm:text-bas">
               <Link href="/">Ana Sayfa</Link>
-              <Link href="/pricing">Ödeme</Link>
+              {/* <Link href="/pricing">Ödeme</Link> */}
               <a href="mailto:yunuemresalcan@gmail.com">İletişim</a>
             </nav>
           </header>
