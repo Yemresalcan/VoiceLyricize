@@ -12,8 +12,11 @@ export default function UploadForm() {
 
   const [uploadCount, setUploadCount] = useState(() => {
     // Initialize upload count from localStorage or default to 0
-    const storedCount = localStorage.getItem('uploadCount');
-    return storedCount ? parseInt(storedCount, 10) : 0;
+    if (typeof window !== 'undefined') {
+      // Perform localStorage action
+      const storedCount = localStorage.getItem('key')
+      return storedCount ? parseInt(storedCount) : 0;
+    }
   });
   const router = useRouter();
 
